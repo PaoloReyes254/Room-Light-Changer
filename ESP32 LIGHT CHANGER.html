@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<!-- saved from url=(0035)https://room-light-changer.web.app/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style>
+        html{
+            background: #73ddeb;
+        }
+        #maintitle {
+            color: #FFFFFF;
+            background: #73ddeb;
+            text-shadow: 2px 2px 0 #4074b5, 2px -2px 0 #4074b5, -2px 2px 0 #4074b5, -2px -2px 0 #4074b5, 2px 0px 0 #4074b5, 0px 2px 0 #4074b5, -2px 0px 0 #4074b5, 0px -2px 0 #4074b5;
+            text-align: center;
+        }
+        h2 {
+            color: #FFFFFF;
+            background: #73ddeb;
+            text-shadow: 2px 2px 0 #4074b5, 2px -2px 0 #4074b5, -2px 2px 0 #4074b5, -2px -2px 0 #4074b5, 2px 0px 0 #4074b5, 0px 2px 0 #4074b5, -2px 0px 0 #4074b5, 0px -2px 0 #4074b5;
+            text-align: center;
+        }
+        .Unavailable {
+            color: #FFFFFF;
+            background: #73ddeb;
+            text-shadow: 2px 2px 0 #4074b5, 2px -2px 0 #4074b5, -2px 2px 0 #4074b5, -2px -2px 0 #4074b5, 2px 0px 0 #4074b5, 0px 2px 0 #4074b5, -2px 0px 0 #4074b5, 0px -2px 0 #4074b5;
+            text-align: center;
+        }
+        .lightON {
+            color: #FFFFFF;
+            text-shadow: 2px 2px 0 #3cda1c, 2px -2px 0 #3cda1c, -2px 2px 0 #3cda1c, -2px -2px 0 #3cda1c, 2px 0px 0 #3cda1c, 0px 2px 0 #3cda1c, -2px 0px 0 #3cda1c, 0px -2px 0 #3cda1c;
+            text-align: center;
+        }
+        .lightOFF {
+            color: #FFFFFF;
+            text-shadow: 2px 2px 0 #c74545, 2px -2px 0 #c74545, -2px 2px 0 #c74545, -2px -2px 0 #c74545, 2px 0px 0 #c74545, 0px 2px 0 #c74545, -2px 0px 0 #c74545, 0px -2px 0 #c74545;
+            text-align: center;
+        }
+        #ON {
+            background-color:#44c767;
+            border-radius:28px;
+            border:1px solid #18ab29;
+            display:inline-block;
+            cursor:pointer;
+            color:#ffffff;
+            font-family:Arial;
+            font-size:17px;
+            padding:16px 31px;
+            text-decoration:none;
+            text-shadow:0px 1px 0px #2f6627;
+        }
+        #ON:hover {
+        	background-color:#5cbf2a;
+        }
+        #ON:active {
+            position:relative;
+            top:1px;
+        }
+        #OFF {
+            background-color:#c74545;
+            border-radius:28px;
+            border:1px solid #c43d3d;
+            display:inline-block;
+            cursor:pointer;
+            color:#ffffff;
+            font-family:Arial;
+            font-size:17px;
+            padding:16px 31px;
+            text-decoration:none;
+            text-shadow:0px 1px 0px #ff0000;
+        }
+        #OFF:hover {
+            background-color:#ff0000;
+        }
+        #OFF:active {
+            position:relative;
+            top:1px;
+        }
+        
+        .buttons{
+            text-align: center;
+        }
+        #SetTime {
+            background-color:#7892c2;
+            border-radius:28px;
+            border:1px solid #4e6096;
+            display:inline-block;
+            cursor:pointer;
+            color:#ffffff;
+            font-family:Arial;
+            font-size:17px;
+            padding:16px 31px;
+            text-decoration:none;
+            text-shadow:0px 1px 0px #283966;
+        }
+        #SetTime:hover {
+            background-color:#476e9e;
+        }
+        #SetTime:active {
+            position:relative;
+            top:1px;
+        }
+        .space{
+            margin: 1%;
+        }
+        #ListPicker{
+            text-align: center;
+            display: none;
+        }
+    </style>
+    
+        <title>ESP32 LIGHT CHANGER</title>
+    </head>
+    <body onload="load()">
+        <h1 id="maintitle">Click a button to start configuration</h1>
+        <div class="buttons">
+            <button onclick="TurnON()" id="ON">ON</button>
+            <button onclick="TurnOFF()" id="OFF">OFF</button>
+            <button onclick="Reset()" id="SetTime">Reset</button>
+        </div>
+        <h2 id="Light">Light: Loading...</h2>
+        <h2 id="Reset">If you press reset the state of the light will depend only on the number of people in the room</h2>
+        <div class="space"></div>
+        <div class="buttons">
+            <button onclick="UnHide()" id="SetTime">Alarm</button>
+        </div>
+        <div id="ListPicker" style="display: none;">
+            <p>Hour:
+            <select name="Hours" id="hour">
+                <option value="0">00</option>
+                <option value="1">01</option>
+                <option value="2">02</option>
+                <option value="3">03</option>
+                <option value="4">04</option>
+                <option value="5">05</option>
+                <option value="6">06</option>
+                <option value="7">07</option>
+                <option value="8">08</option>
+                <option value="9">09</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+                <option value="19">19</option>
+                <option value="20">20</option>
+                <option value="21">21</option>
+                <option value="22">22</option>
+                <option value="23">23</option>
+                <option value="24">24</option>
+            </select>
+            </p><p>Minute:
+            <select name="Minutes" id="minute">
+                <option value="0">00</option>
+                <option value="1">01</option>
+                <option value="2">02</option>
+                <option value="3">03</option>
+                <option value="4">04</option>
+                <option value="5">05</option>
+                <option value="6">06</option>
+                <option value="7">07</option>
+                <option value="8">08</option>
+                <option value="9">09</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+                <option value="19">19</option>
+                <option value="20">20</option>
+                <option value="21">21</option>
+                <option value="22">22</option>
+                <option value="23">23</option>
+                <option value="24">24</option>
+                <option value="25">25</option>
+                <option value="26">26</option>
+                <option value="27">27</option>
+                <option value="28">28</option>
+                <option value="29">29</option>
+                <option value="30">30</option>
+                <option value="31">31</option>
+                <option value="32">32</option>
+                <option value="33">33</option>
+                <option value="34">34</option>
+                <option value="35">35</option>
+                <option value="36">36</option>
+                <option value="37">37</option>
+                <option value="38">38</option>
+                <option value="39">39</option>
+                <option value="40">40</option>
+                <option value="41">41</option>
+                <option value="42">42</option>
+                <option value="43">43</option>
+                <option value="44">44</option>
+                <option value="45">45</option>
+                <option value="46">46</option>
+                <option value="47">47</option>
+                <option value="48">48</option>
+                <option value="49">49</option>
+                <option value="50">50</option>
+                <option value="51">51</option>
+                <option value="52">52</option>
+                <option value="53">53</option>
+                <option value="54">54</option>
+                <option value="55">55</option>
+                <option value="56">56</option>
+                <option value="57">57</option>
+                <option value="58">58</option>
+                <option value="59">59</option>
+                <option value="60">60</option>
+            </select>
+            </p><p> Second: 
+                <select name="Seconds" id="second">
+                    <option value="0">00</option>
+                    <option value="1">01</option>
+                    <option value="2">02</option>
+                    <option value="3">03</option>
+                    <option value="4">04</option>
+                    <option value="5">05</option>
+                    <option value="6">06</option>
+                    <option value="7">07</option>
+                    <option value="8">08</option>
+                    <option value="9">09</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                    <option value="17">17</option>
+                    <option value="18">18</option>
+                    <option value="19">19</option>
+                    <option value="20">20</option>
+                    <option value="21">21</option>
+                    <option value="22">22</option>
+                    <option value="23">23</option>
+                    <option value="24">24</option>
+                    <option value="25">25</option>
+                    <option value="26">26</option>
+                    <option value="27">27</option>
+                    <option value="28">28</option>
+                    <option value="29">29</option>
+                    <option value="30">30</option>
+                    <option value="31">31</option>
+                    <option value="32">32</option>
+                    <option value="33">33</option>
+                    <option value="34">34</option>
+                    <option value="35">35</option>
+                    <option value="36">36</option>
+                    <option value="37">37</option>
+                    <option value="38">38</option>
+                    <option value="39">39</option>
+                    <option value="40">40</option>
+                    <option value="41">41</option>
+                    <option value="42">42</option>
+                    <option value="43">43</option>
+                    <option value="44">44</option>
+                    <option value="45">45</option>
+                    <option value="46">46</option>
+                    <option value="47">47</option>
+                    <option value="48">48</option>
+                    <option value="49">49</option>
+                    <option value="50">50</option>
+                    <option value="51">51</option>
+                    <option value="52">52</option>
+                    <option value="53">53</option>
+                    <option value="54">54</option>
+                    <option value="55">55</option>
+                    <option value="56">56</option>
+                    <option value="57">57</option>
+                    <option value="58">58</option>
+                    <option value="59">59</option>
+                    <option value="60">60</option>
+                </select>
+            </p>
+            <button onclick="Set()">Set</button>
+        </div>
+        <h2 id="actualAlarm" >Actual Alarm: loading...</h2>
+        <h2 id="currentPeople" >People inside: loading...</h2>
+        <h2 id="Status" >Status: loading...</h2>
+        <h2 id="Temperature" >Temperature: loading...</h2>
+        <h2 id="Humidity" >Humidity: loading...</h2>
+       
+    <script src="./ESP32 LIGHT CHANGER_files/firebase-app.js.download"></script>
+    <script src="./ESP32 LIGHT CHANGER_files/firebase-database.js.download"></script>
+    <script>
+        var firebaseConfig = {
+            apiKey: "AIzaSyBgjcS94PmhF1m63FB3pz4urwvnngBIJCE",
+            authDomain: "room-light-changer.firebaseapp.com",
+            databaseURL: "https://room-light-changer-default-rtdb.firebaseio.com",
+            projectId: "room-light-changer",
+            storageBucket: "room-light-changer.appspot.com",
+            messagingSenderId: "62796024275",
+            appId: "1:62796024275:web:7f4e4e3092cdbe2e5cc726",
+            measurementId: "G-PSV17DHPCE"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+    </script>
+    <script>
+        var estado;
+        function load() {
+            var hour;
+            var minute;
+            var second;
+            database.ref('/Fecha/').on('value', function(snapshot){
+                hour = snapshot.val().Hora;
+                minute = snapshot.val().Minuto;
+                second = snapshot.val().Segundo;
+                document.getElementById("hour").value = hour;
+                document.getElementById("minute").value = minute;
+                document.getElementById("second").value = second;
+                if (hour < 10) {
+                    hour = "0"+hour;
+                }
+                if (minute < 10) {
+                    minute = "0"+minute;
+                }
+                if (second < 10) {
+                    second = "0"+second;
+                }
+                document.getElementById("actualAlarm").innerHTML = "Actual Alarm "+hour+":"+minute+":"+second;
+            });
+            database.ref('/People').on('value', function(snapshot){
+                var people = snapshot.val();
+                document.getElementById("currentPeople").innerHTML = "People inside: " + people;
+            });
+            database.ref('/Status').on('value', function(snapshot){
+                var status = snapshot.val();
+                document.getElementById("Status").innerHTML = "Status: " + status;
+            });
+            database.ref('/Reset').on('value', function(snapshot){
+                var reset = snapshot.val();
+                if (reset == 0) {
+                    document.getElementById("Reset").innerHTML = "Light depends on the number of people";
+                }
+            });
+            database.ref('/Light').on('value', function(snapshot){
+                var light = snapshot.val();
+                if (light == "ON") {
+                    document.getElementById("Light").className = "lightON";
+                } else if (light == "OFF") {
+                    document.getElementById("Light").className = "lightOFF";
+                } else if (light == "Unavailable") {
+                    document.getElementById("Light").className = "Unavailable";
+                }
+                document.getElementById("Light").innerHTML = "Light: " + light;
+            });
+            database.ref('/TH').on('value', function(snapshot){
+                var T = snapshot.val().T;
+                var H = snapshot.val().H;
+                document.getElementById("Temperature").innerHTML = "Temperature: " + T;
+                document.getElementById("Humidity").innerHTML = "Humidity: " + H;
+            });
+            database.ref('/Estado').on('value', function(snapshot){
+                estado = snapshot.val();
+            });
+        }
+        var hiden;
+        function UnHide() {
+            var T = document.getElementById("ListPicker");
+            if (!hiden) {
+                T.style.display = "block";  // <-- Set it to block
+                hiden = true;
+            } else {
+                T.style.display = "none";  // <-- Set it to block
+                hiden = false;
+            }
+        }
+        function Set() {
+            var H = document.getElementById("hour");
+            var M = document.getElementById("minute");
+            var S = document.getElementById("second");
+            database.ref('/Fecha/').set({
+                Hora: parseInt(H.value),
+                Minuto: parseInt(M.value),
+                Segundo: parseInt(S.value)
+            });
+        }
+        function TurnON() {
+            if (estado == 0) {
+                database.ref('/Estado').set(1);
+                document.getElementById("Light").innerHTML = "Light: Waiting because Paolo is stupid and didn't figure out how to make this process faster";
+                document.getElementById("Reset").innerHTML = "Light depends on ON/OFF buttons";
+            }
+        }
+        function TurnOFF() {
+            if (estado == 1) {
+                database.ref('/Estado').set(0);
+                document.getElementById("Light").innerHTML = "Light: Waiting because Paolo is stupid and didn't figure out how to make this process faster";
+                document.getElementById("Reset").innerHTML = "Light depends on ON/OFF buttons";
+            }
+        }
+        function Reset() {
+            database.ref('/Reset').set(1);
+            document.getElementById("Reset").innerHTML = "Resetting...";
+        }
+    </script> 
+    </body>
+</html>
