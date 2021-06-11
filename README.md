@@ -17,9 +17,9 @@ I found that the app shortcuts in an Iphone can execute javascript codes in safa
 
 Since all this code will be written in an iphone I will document this process in this README file.
 
-The first thing to do is to create a Js code that can connect and create instances of firebase and the only replicate the functions my ON and OFF buttons are doing.
+The first thing to do is to create a Js code that can connect and create instances of firebase and then only replicate the functions of my ON and OFF buttons.
 
-I created 3 HTML files one for each function that is turning ON the light, turning OFF the light and enable people count to turn light ON when there is more than one person.
+I created 3 HTML files one for each function, one is turning ON the light, another is turning OFF the light and the last one enables people count to turn light ON when there is more than one person.
 
 Then I created individual shortcuts to execute that HTML in safari and I save them with names like "Turn light ON" and I only have to tell that command to Siri and will execute that code.
 
