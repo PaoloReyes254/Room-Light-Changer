@@ -27,4 +27,4 @@ Then I created individual shortcuts to execute that HTML in safari and I save th
 
 # Shortcut
 
-![](https://github.com/PaoloReyes254/Room-Light-Changer/blob/main/Images/Interface.PNG?raw=true)
+![](https://github.com/PaoloReyes254/Room-Light-Changer/blob/main/Images/Shortcut.jpg?raw=true)
